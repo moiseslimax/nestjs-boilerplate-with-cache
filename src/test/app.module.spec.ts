@@ -11,7 +11,13 @@ describe('AppModule', () => {
       imports: [AppModule],
     })
       .overrideProvider(getRepositoryToken(Book))
-      .useValue({})
+      .useValue({
+        find: jest.fn(),
+        findOneBy: jest.fn(),
+        create: jest.fn(),
+        save: jest.fn(),
+        delete: jest.fn(),
+      })
       .compile();
   });
 

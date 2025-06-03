@@ -62,6 +62,10 @@
       "js",
       "json",
       "ts"
+    ],    
+    "coveragePathIgnorePatterns": [
+      "src/test/main.spec.ts",
+      "src/main.ts"
     ],
     "rootDir": "src",
     "testRegex": ".*\\.spec\\.ts$",

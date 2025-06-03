@@ -4,9 +4,10 @@ import { AppService } from './app.service';
 import { BookModule } from './book/book.module';
 import { DatabaseModule } from './database/database.module';
 import { RedisService } from './redis/redis.service';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [BookModule, DatabaseModule],
+  imports: [BookModule, ConfigModule.forRoot({isGlobal: true}),DatabaseModule],
   controllers: [AppController],
   providers: [AppService, RedisService],
   exports: [RedisService], 

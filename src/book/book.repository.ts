@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Book } from './entity/book.entity';
@@ -13,6 +13,14 @@ export class BookRepository {
 
     async findAll(): Promise<BookDto[]> {
         return this.bookRepo.find();
+    }
+
+    async findById(id: number): Promise<BookDto> {
+        const book = await this.bookRepo.findOneBy({ id });
+        if (!book) {
+            throw new BadRequestException(`Book with ID ${id} not found`);
+        }
+        return book;
     }
 
     async create(bookData: CreateBookDto): Promise<BookDto> {

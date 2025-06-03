@@ -11,6 +11,10 @@ export class BookService {
         return await this.bookRepository.findAll();
     }
 
+    async findById(id: number): Promise<BookDto> {
+        return await this.bookRepository.findById(id);
+    }
+
     async create(book: CreateBookDto): Promise<BookDto> {
         return await this.bookRepository.create(book)
     }

@@ -11,6 +11,9 @@ describe('BookService', () => {
     findAll: jest.fn().mockResolvedValue([
       { id: 1, title: 'Test Book', author: 'Author' },
     ]),
+    findById: jest.fn().mockImplementation((id: number) =>
+      Promise.resolve({ id, title: 'Test Book', author: 'Author' }),
+    ),
     create: jest.fn().mockImplementation((dto: CreateBookDto) =>
       Promise.resolve({ id: 1, ...dto }),
     ),
@@ -39,6 +42,14 @@ describe('BookService', () => {
         { id: 1, title: 'Test Book', author: 'Author' },
       ]);
       expect(repository.findAll).toHaveBeenCalled();
+    });
+  });
+
+  describe('findById', () => {
+    it('should return a book by id', async () => {
+      const result = await service.findById(1);
+      expect(result).toEqual({ id: 1, title: 'Test Book', author: 'Author' });
+      expect(repository.findById).toHaveBeenCalledWith(1);
     });
   });
 

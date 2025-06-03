@@ -13,6 +13,11 @@ describe('BookRepository', () => {
     find: jest.fn().mockResolvedValue([
       { id: 1, title: 'Test Book', author: 'Author' },
     ]),
+    findOneBy: jest.fn().mockImplementation(({ id }) =>
+      id === 1
+        ? Promise.resolve({ id: 1, title: 'Test Book', author: 'Author' })
+        : Promise.resolve(null)
+    ),
     create: jest.fn().mockImplementation((dto: CreateBookDto) => dto),
     save: jest.fn().mockImplementation((book: any) =>
       Promise.resolve({ id: 1, ...book }),
@@ -45,6 +50,19 @@ describe('BookRepository', () => {
         { id: 1, title: 'Test Book', author: 'Author' },
       ]);
       expect(typeOrmRepo.find).toHaveBeenCalled();
+    });
+  });
+
+  describe('findById', () => {
+    it('should return a book by id', async () => {
+      const result = await repository.findById(1);
+      expect(result).toEqual({ id: 1, title: 'Test Book', author: 'Author' });
+      expect(typeOrmRepo.findOneBy).toHaveBeenCalledWith({ id: 1 });
+    });
+
+    it('should throw if book not found', async () => {
+      await expect(repository.findById(999)).rejects.toThrow();
+      expect(typeOrmRepo.findOneBy).toHaveBeenCalledWith({ id: 999 });
     });
   });
 

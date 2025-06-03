@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { BookService } from '../book.service';
 import { BookRepository } from '../book.repository';
 import { CreateBookDto } from '../dto/book.dto';
+import { RedisService } from '../../redis/redis.service';
 
 describe('BookService', () => {
   let service: BookService;
@@ -19,11 +20,18 @@ describe('BookService', () => {
     ),
   };
 
+  const mockRedisService = {
+    get: jest.fn().mockResolvedValue(null),
+    set: jest.fn().mockResolvedValue('OK'),
+    del: jest.fn().mockResolvedValue(1),
+  };
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         BookService,
         { provide: BookRepository, useValue: mockBookRepository },
+        { provide: RedisService, useValue: mockRedisService },
       ],
     }).compile();
 

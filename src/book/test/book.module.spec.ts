@@ -12,6 +12,12 @@ describe('BookModule', () => {
     })
       .overrideProvider(getRepositoryToken(Book))
       .useValue({})
+      .overrideProvider('RedisService')
+      .useValue({
+        get: jest.fn(),
+        set: jest.fn(),
+        del: jest.fn(),
+      })
       .compile();
   });
 

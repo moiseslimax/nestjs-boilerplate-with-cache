@@ -7,9 +7,9 @@ import { RedisService } from './redis/redis.service';
 import { ConfigAppModule } from './config/config.module';
 
 @Module({
-  imports: [BookModule, ConfigAppModule,DatabaseModule],
+  imports: [BookModule, ConfigAppModule, DatabaseModule],
   controllers: [AppController],
   providers: [AppService, RedisService],
-  exports: [RedisService], 
+  exports: [RedisService],
 })
 export class AppModule {}

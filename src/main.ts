@@ -12,6 +12,5 @@ async function bootstrap() {
     Logger.error('Environment validation failed:', error);
     process.exit(1);
   }
- 
 }
 bootstrap();

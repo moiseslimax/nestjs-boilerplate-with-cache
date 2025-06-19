@@ -3,7 +3,7 @@ import { RedisService } from './redis.service';
 import { ConfigAppModule } from '../config/config.module';
 
 @Module({
-  imports: [ConfigAppModule], 
+  imports: [ConfigAppModule],
   providers: [RedisService],
   exports: [RedisService],
 })

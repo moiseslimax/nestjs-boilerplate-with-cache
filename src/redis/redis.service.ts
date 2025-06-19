@@ -32,7 +32,11 @@ export class RedisService implements OnModuleInit {
     return this.client.get(key);
   }
 
-  async set(key: string, value: string, ttlSeconds: number): Promise<'OK' | null> {
+  async set(
+    key: string,
+    value: string,
+    ttlSeconds: number,
+  ): Promise<'OK' | null> {
     if (!this.connected) return null;
     return this.client.set(key, value, 'EX', ttlSeconds);
   }

@@ -19,9 +19,9 @@ describe('AppController (e2e)', () => {
     await app.close();
   });
 
-  it('/ (GET)', () => {
+  it('/status (GET)', () => {
     return request(app.getHttpServer())
-      .get('/')
+      .get('/status')
       .expect(200)
       .expect('Server status: OK');
   });
